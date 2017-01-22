@@ -1,28 +1,50 @@
 class Contact
 
+  attr_reader :id
+  attr_accessor :first_name, :last_name, :email, :note
+
+  @@contacts = []
+  @@id = 1
+end
+
   # This method should initialize the contact's attributes
-  def initialize
+  def initialize(first_name, last_name, email, notes)
+      @first_name = first_name
+      @last_name = last_name
+      @email = email
+      @notes = notes
+      @id = @@id
+      @@id += 1
 
   end
 
-  # This method should call the initializer, 
+  # This method should call the initializer,
   # store the newly created contact, and then return it
-  def self.create
+  def self.create(first_name, last_name, email, note)
+    @@contacts << new_contact 
+    @@id += 1
+    return new_contact
 
   end
 
   # This method should return all of the existing contacts
   def self.all
+    @@contacts
 
   end
 
   # This method should accept an id as an argument
   # and return the contact who has that id
-  def self.find
+  def self.find(id)
+    @@contacts.map do |contact|
+      if id == contact.id
+        return "#{contact.first_name} #{contact.last_name}"
+      end
+    end
 
   end
 
-  # This method should allow you to specify 
+  # This method should allow you to specify
   # 1. which of the contact's attributes you want to update
   # 2. the new value for that attribute
   # and then make the appropriate change to the contact
@@ -44,6 +66,7 @@ class Contact
   end
 
   def full_name
+    "#{first_name} #{last_name}"
 
   end
 
@@ -54,5 +77,5 @@ class Contact
   end
 
   # Feel free to add other methods here, if you need them.
-  
+
 end
