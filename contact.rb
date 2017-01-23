@@ -32,9 +32,8 @@ class Contact
 
     # This method should return all of the existing contacts
     def self.all
-      @@contacts
        @@contacts.each do |contact|
-        puts "ID:#{contact.id} #{contact.first_name} #{contact.email} #{contact.note}"
+        puts "ID:#{contact.id} #{contact.first_name} #{contact.last_name} #{contact.email} #{contact.note}"
         end
 
     end
@@ -47,6 +46,7 @@ class Contact
     @@contacts.each do |contact|
       if contact.id == contact_id
         return contact
+      end
     end
   end
 
@@ -56,13 +56,13 @@ class Contact
   # and then make the appropriate change to the contact
   def update(attr_name, attr_value)
     if attr_name == "first_name"
-      first_name = attr_value
+      self.first_name = attr_value
     elsif attr_name == "last_name"
-      last_name = attr_value
+      self.last_name = attr_value
     elsif attr_name == "email"
-      email = attr_value
+      self.email = attr_value
     elsif attr_name == "note"
-      note = attr_value
+      self.note = attr_value
     end
 
   end
@@ -71,7 +71,15 @@ class Contact
   # but it should allow you to search for a contact using attributes other than id
   # by specifying both the name of the attribute and the value
   # eg. searching for 'first_name', 'Betty' should return the first contact named Betty
-  def self.find_by
+  def self.find_by(attr_name, attr_value)
+    @@contacts.each do |contact|
+      if contact.send(attr_name) == attr_value
+        return contact
+      end
+    end
+
+
+    #@@contacts.find { |contact| contact if contact.send(attr_name) == attr_value} first try
 
   end
 
@@ -93,5 +101,4 @@ class Contact
 
   # Feel free to add other methods here, if you need them.
 
-end
 end

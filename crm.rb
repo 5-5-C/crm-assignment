@@ -86,11 +86,11 @@ end
   def modify_existing_contact
     print "enter contact id to be updated:"
     contact_id = gets.chomp.to_i
-    print "what would you like to update?"
+    print "what would you like to update:"
     print_attribute_menu
     attr_selected = gets.to_i
     attribute = attribute_options(attr_selected)
-    print "Enter Updated Value"
+    print "Enter Updated Value:"
     updated_val = gets.chomp
     contact = Contact.find(contact_id)
     contact.update(attribute, updated_val)
@@ -103,10 +103,31 @@ end
   end
 
   def display_all_contacts
-Contact.all
+    Contact.all
   end
 
   def search_by_attribute
+    print "How would you like to search through your contact?"
+    print_attribute_menu
+    user_selected = gets.to_i
+    search_by_attribute = user_selected
+
+    case user_selected
+      when 1 then attribute = "first_name"
+      when 2 then attribute = "last_name"
+      when 3 then attribute = "email"
+      when 4 then attribute = "note"
+      end
+    print "Enter Search Query:"
+      query = gets.to_i
+      Contact.all.each do |contact|
+        if contact attribute == query
+          return "#{contact}"
+        end
+      #prompts are good, but returns not working correctly
+
+
+  end
 
   end
 
