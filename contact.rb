@@ -1,3 +1,5 @@
+#require_relative 'crm'
+
 class Contact
 
   attr_reader :id
@@ -5,50 +7,63 @@ class Contact
 
   @@contacts = []
   @@id = 1
-end
 
-  # This method should initialize the contact's attributes
-  def initialize(first_name, last_name, email, notes)
-      @first_name = first_name
-      @last_name = last_name
-      @email = email
-      @notes = notes
-      @id = @@id
-      @@id += 1
 
-  end
 
-  # This method should call the initializer,
-  # store the newly created contact, and then return it
-  def self.create(first_name, last_name, email, note)
-    @@contacts << new_contact 
-    @@id += 1
-    return new_contact
+      # This method should initialize the contact's attributes
+      def initialize(first_name, last_name, email, note)
+          @first_name = first_name
+          @last_name = last_name
+          @email = email
+          @note = note
+          @id = @@id
+          @@id += 1
 
-  end
+      end
 
-  # This method should return all of the existing contacts
-  def self.all
-    @@contacts
+        # This method should call the initializer,
+        # store the newly created contact, and then return it
+        def self.create(first_name, last_name, email, note)
+          new_contact = self.new(first_name, last_name, email, note)
+          @@contacts << new_contact
+          return new_contact
 
-  end
+        end
+
+    # This method should return all of the existing contacts
+    def self.all
+      @@contacts
+       @@contacts.each do |contact|
+        puts "ID:#{contact.id} #{contact.first_name} #{contact.email} #{contact.note}"
+        end
+
+    end
+
+
 
   # This method should accept an id as an argument
   # and return the contact who has that id
-  def self.find(id)
-    @@contacts.map do |contact|
-      if id == contact.id
-        return "#{contact.first_name} #{contact.last_name}"
-      end
+  def self.find(contact_id)
+    @@contacts.each do |contact|
+      if contact.id == contact_id
+        return contact
     end
-
   end
 
   # This method should allow you to specify
   # 1. which of the contact's attributes you want to update
   # 2. the new value for that attribute
   # and then make the appropriate change to the contact
-  def update
+  def update(attr_name, attr_value)
+    if attr_name == "first_name"
+      first_name = attr_value
+    elsif attr_name == "last_name"
+      last_name = attr_value
+    elsif attr_name == "email"
+      email = attr_value
+    elsif attr_name == "note"
+      note = attr_value
+    end
 
   end
 
@@ -66,7 +81,7 @@ end
   end
 
   def full_name
-    "#{first_name} #{last_name}"
+        "#{first_name} #{last_name}"
 
   end
 
@@ -78,4 +93,5 @@ end
 
   # Feel free to add other methods here, if you need them.
 
+end
 end
